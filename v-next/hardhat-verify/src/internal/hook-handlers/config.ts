@@ -6,6 +6,8 @@ import type {
   EtherscanUserConfig,
   BlockscoutUserConfig,
   BlockscoutConfig,
+  RoutescanUserConfig,
+  RoutescanConfig,
 } from "hardhat/types/config";
 import type {
   ConfigHooks,
@@ -33,6 +35,11 @@ const userConfigType = z.object({
           enabled: z.boolean().optional(),
         })
         .optional(),
+              routescan: z                   
+        .object({                    
+          enabled: z.boolean().optional(),
+        })
+        .optional(),                 
       etherscan: conditionalUnionType(
         [
           [
@@ -79,6 +86,7 @@ export async function resolveUserConfig(
     verify: {
       ...resolvedConfig.verify,
       blockscout: resolveBlockscoutConfig(userConfig.verify?.blockscout),
+      routescan: resolveRoutescanConfig(userConfig.verify?.routescan), // <-- add
       etherscan: resolveEtherscanConfig(
         userConfig.verify?.etherscan,
         resolveConfigurationVariable,
@@ -96,6 +104,15 @@ function resolveBlockscoutConfig(
     enabled: blockscoutConfig.enabled ?? true,
   };
 }
+
+function resolveRoutescanConfig(
+  routescanConfig: RoutescanUserConfig | undefined = { enabled: true },
+): RoutescanConfig {
+  return {
+    enabled: routescanConfig.enabled ?? true,
+  };
+}
+
 
 function resolveEtherscanConfig(
   etherscanConfig: EtherscanUserConfig | undefined = {

@@ -7,9 +7,14 @@ declare module "hardhat/types/config" {
   export interface VerificationProvidersUserConfig {
     blockscout?: BlockscoutUserConfig;
     etherscan?: EtherscanUserConfig;
+    routescan?: RoutescanUserConfig;
   }
 
   export interface BlockscoutUserConfig {
+    enabled?: boolean;
+  }
+
+    export interface RoutescanUserConfig {
     enabled?: boolean;
   }
 
@@ -30,14 +35,27 @@ declare module "hardhat/types/config" {
   export interface VerificationProvidersConfig {
     blockscout: BlockscoutConfig;
     etherscan: EtherscanConfig;
+    routescan: RoutescanConfig;
   }
 
   export interface BlockscoutConfig {
     enabled: boolean;
   }
 
+  export interface RoutescanConfig {
+    enabled: boolean;
+  }
+
   export interface EtherscanConfig {
     apiKey: ResolvedConfigurationVariable;
     enabled: boolean;
+  }
+
+  export interface BlockExplorersConfig {
+    routescan?: {
+      name: string;    
+      url: string;      
+      apiUrl: string;   
+    };
   }
 }

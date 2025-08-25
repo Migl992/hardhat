@@ -23,6 +23,7 @@ import { encodeConstructorArgs } from "./constructor-args.js";
 import { ContractInformationResolver } from "./contract.js";
 import { Etherscan, ETHERSCAN_PROVIDER_NAME } from "./etherscan.js";
 import { resolveLibraryInformation } from "./libraries.js";
+import { Routescan, ROUTESCAN_PROVIDER_NAME } from "./routescan.js";
 import {
   filterVersionsByRange,
   resolveSupportedSolcVersions,
@@ -292,7 +293,8 @@ ${libraryInformation.undetectableLibraries.map((x) => `  * ${x}`).join("\n")}`
 export function validateVerificationProviderName(provider: unknown): void {
   if (
     provider !== ETHERSCAN_PROVIDER_NAME &&
-    provider !== BLOCKSCOUT_PROVIDER_NAME
+    provider !== BLOCKSCOUT_PROVIDER_NAME &&
+    provider !== ROUTESCAN_PROVIDER_NAME
   ) {
     throw new HardhatError(
       HardhatError.ERRORS.HARDHAT_VERIFY.VALIDATION.INVALID_VERIFICATION_PROVIDER,
@@ -301,6 +303,7 @@ export function validateVerificationProviderName(provider: unknown): void {
         supportedVerificationProviders: [
           ETHERSCAN_PROVIDER_NAME,
           BLOCKSCOUT_PROVIDER_NAME,
+          ROUTESCAN_PROVIDER_NAME,
         ].join(", "),
       },
     );
@@ -374,6 +377,8 @@ async function createVerificationProviderInstance({
       chainId,
       apiKey: await verificationProvidersConfig.etherscan.apiKey.get(),
     });
+  } else if (verificationProviderName === "routescan") {
+  return new Routescan(commonOptions);
   }
 
   return new Blockscout(commonOptions);

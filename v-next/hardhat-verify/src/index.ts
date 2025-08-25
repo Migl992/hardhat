@@ -4,13 +4,14 @@ import "./type-extensions.js";
 import verifyBlockscoutTask from "./internal/tasks/verify/blockscout/index.js";
 import verifyEtherscanTask from "./internal/tasks/verify/etherscan/index.js";
 import verifyTask from "./internal/tasks/verify/index.js";
+import verifyRoutescanTask from "./internal/tasks/verify/routescan/index.js";
 
 const hardhatPlugin: HardhatPlugin = {
   id: "hardhat-verify",
   hookHandlers: {
     config: () => import("./internal/hook-handlers/config.js"),
   },
-  tasks: [verifyTask, verifyBlockscoutTask, verifyEtherscanTask],
+  tasks: [verifyTask, verifyBlockscoutTask, verifyEtherscanTask, verifyRoutescanTask],
   npmPackage: "@nomicfoundation/hardhat-verify",
 };
 

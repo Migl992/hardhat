@@ -76,6 +76,10 @@ export const DEFAULT_CHAIN_DESCRIPTORS: ChainDescriptorsConfig = new Map([
           url: "https://eth-sepolia.blockscout.com",
           apiUrl: "https://eth-sepolia.blockscout.com/api",
         },
+        routescan: {
+          url: "https://11155111.testnet.routescan.io/",
+          apiUrl: "https://api.routescan.io/v2/network/testnet/evm/11155111/etherscan"
+        },
       },
     },
   ],
@@ -237,9 +241,16 @@ export const DEFAULT_CHAIN_DESCRIPTORS: ChainDescriptorsConfig = new Map([
           url: "https://testnet.snowtrace.io",
           apiUrl: "https://api-testnet.snowtrace.io/api",
         },
-      },
+        routescan: {
+          name: "Routescan",
+          url: "https://testnet.snowtrace.io",
+          apiUrl: "https://api.routescan.io/v2/network/testnet/evm/43113/etherscan",
+     },
     },
+   },
   ],
+
+
   // polygon mainnet
   [
     137n,
